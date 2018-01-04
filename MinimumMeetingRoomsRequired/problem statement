@@ -1,0 +1,25 @@
+Usually this question asked as an algorithm to be solved, this version is about an sql query to achieve the same.
+
+Given a list of meeting times, checks if any of them overlaps. The follow-up question is to return the minimum number of rooms required to accommodate all the meetings.
+
+CREATE table meetings(id INTEGER PRIMARY key,start_time VARCHAR,end_time VARCHAR)  
+
+write an sql query that finds the minimum number of rooms that have to be reserved in order to all the meetings to take palce. 
+Every meeting should take place in exactly one room. it is possible to plan a meeting in the same room just after another meeting has ended.
+
+Given,
+
+id,start_time,end_time
+1,08:00,09:15
+2,13:20,15:20
+3,10:00,14:00
+4,13:55,16:25
+5,14:00,17:45
+6,14:05,17:45
+
+your query should return
+
+rooms
+4
+
+

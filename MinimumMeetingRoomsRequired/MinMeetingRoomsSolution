@@ -1,0 +1,24 @@
+CREATE table meetings(id INTEGER PRIMARY key,start_time VARCHAR,end_time VARCHAR)  
+
+insert into meetings(id,start_time,end_time) values(1,'08:00','09:15')
+
+insert into meetings(id,start_time,end_time) values(2,'13:20','15:20')
+insert into meetings(id,start_time,end_time) values(3,'10:00','14:00')
+
+insert into meetings(id,start_time,end_time) values(4,'13:55','16:25')
+insert into meetings(id,start_time,end_time) values(5,'14:00','17:45')
+insert into meetings(id,start_time,end_time) values(6,'14:05','17:45')
+
+select * from meetings
+
+// actual solution starts here, i have added an extra column by converting to time stamp for more clarity
+ALTER TABLE meetings ADD COLUMN st time;
+UPDATE meetings SET st = to_timestamp(start_time,'HH24:MI:SS');
+ALTER TABLE meetings ADD COLUMN et time;
+UPDATE meetings SET et = to_timestamp(end_time,'HH24:MI:SS');
+
+select max(rm) rooms from 
+ (SELECT  count(*) rm from meetings m1, meetings m2 where m1.id<>m2.id and ((m1.st between m2.st and m2.et) or (m1.et between m2.st and m2.et )) group by m1.id) t
+ 
+ // run this query to uderstand the how its done
+ SELECT  m1.id,count(*) rm from meetings m1, meetings m2 where m1.id<>m2.id and ((m1.st between m2.st and m2.et) or (m1.et between m2.st and m2.et )) group by m1.id
